@@ -23,7 +23,7 @@ bckupCount = 0
 movedCount = 0
 
 
-s = "INSERT INTO mon.TransferScripts_Events(FileName,SourceLocation,DestinationLocation,TimeDownload,TimeUpload,Status,Error,ProjectName,BackupLocation) "
+s = "INSERT INTO SQL_Table(FileName,SourceLocation,DestinationLocation,TimeDownload,TimeUpload,Status,Error,ProjectName,BackupLocation) "
 
 
 # Append all the files in the source folder to a list so it could be iterated easier
@@ -45,11 +45,11 @@ if (checkIfDirectoryExists.checkIfDirectoryExists(src,dest,bckup)) == False:
 
 # Second step try to connect to the DB server
 # Try to establish a connection to the database server
-# Logs in an e-mail all the transfer data and send it via e-mail to DIP team
+# Logs in an e-mail all the transfer data and send it via e-mail
 
 print()
 print("-------------------------------------------------------------------")
-print("Second step: Establishing connection with CHSQL281...")
+print("Second step: Establishing connection with Database...")
 print("-------------------------------------------------------------------")
 
 try:
@@ -130,7 +130,7 @@ try:
 
 		# If the file failed to be coppied in the backup location
 		# Save the time of the error
-		# Safe the name of the file that failed to be coppied
+		# Save the name of the file that failed to be coppied
 		# Logs the error in the DB
 
 		except:
@@ -152,10 +152,10 @@ try:
 # Save a copy of the file in the backupfolder
 # Transfer the file from source to destination
 # Log all the necessary information and send
-# An e-mail to DIP team to log the info
+# An e-mail to team to log the info
 
 except:
-	print("Failed to connect to CHSQL281 Database...")
+	print("Failed to connect to Database...")
 	print("Starting alternative solution for logging...")
 	print("-------------------------------------------------------------------")
 	e = ""
@@ -217,12 +217,12 @@ except:
 	msg = MIMEMultipart()
 	msg['X-Priority'] = '2'
 	msg['Subject'] = ("ALERT FILE TRANSFER PY ")
-	msg['From'] = 'test@plm'
+	msg['From'] = 'from@domain'
 	msg['To'] = 'sender@domain'
 
 
 	sender = 'sender@domain'
-	receivers = ['account@domain.io']
+	receivers = ['account@domain']
 
 	text = """\
 	<html>
@@ -231,7 +231,7 @@ except:
 	</head>
 	<body aria-readonly="false">Dear All,<br />
 	<br />
-	fileTransfer.py encountered some issues while trying to connect to CHSQL281! <br />
+	fileTransfer.py encountered some issues while trying to connect to Database! <br />
 	<br />"""
 
 	text += e
