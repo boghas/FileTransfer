@@ -1,0 +1,2 @@
+This is a script that copies files from source to destination + additional log into SQL Database. In case the Databse can't be reached by
+the script due to various reasons, then it performs the log via e-mail.
